@@ -1,68 +1,67 @@
-# 🌀 Solix DePIN Bot JS
-- Automate Solix point Browser mining with this robust Node.js script <br>
+# 🌀 Solix DePIN 自动化脚本 JS版
+- 使用这个强大的Node.js脚本自动化Solix浏览器挖矿<br>
 <img src="https://github.com/user-attachments/assets/05062ed3-e3b6-4e4b-82a6-8a99b541633d" widht=580 height=480 >
 <br>
 
 >[!TIP]
-> You may encounter some server errors 502,503 etc. <br>
-> Still in the FOMO period, surely you know this. <br>
+> 您可能会遇到502、503等服务器错误<br>
+> 目前仍处于FOMO阶段，相信您能理解<br>
 
 > [!WARNING]
-> The use of this bot is entirely at your own risk. I assume no liability for any losses, damages, or consequences arising from its use.
+> 使用本脚本风险自担。对于因使用本脚本导致的任何损失或后果，本人概不负责。
 
-## 🦾 Bot Script Features
+## 🦾 脚本功能
 
-- Multi accounts
-- Automatic mining
-- Automatic Task Completion
-- Automatic Re-Login when Bearer Token Expired
-- Automatically detect Bearer Token When Running Bot
+- 多账号支持
+- 自动挖矿
+- 自动完成任务
+- Bearer Token过期时自动重新登录
+- 运行脚本时自动检测Bearer Token
 
-## 🔓 Register 
+## 🔓 注册指南
 
-- If you don't have a Solix DePIN account yet
-- Signup Here [https://dashboard.solixdepin.net/sign-up](https://dashboard.solixdepin.net/sign-up?ref=aiBLyfZo)
-- refCode = `aiBLyfZo`
+- 如果您还没有Solix DePIN账号
+- 请在此注册 [https://dashboard.solixdepin.net/sign-up](https://dashboard.solixdepin.net/sign-up?ref=zQXIGFlF)
+- 邀请码 = `zQXIGFlF`
   ```bash
-  aiBLyfZo
+  zQXIGFlF
   ```
 
-## 🤔 How To Do
+## 🤔 如何使用
 
 - Clone This Repo
   - ```bash
-    git clone https://github.com/cmalf/solix-depin-bot-js.git
+    git clone https://github.com/arronf2e/solix-depin-bot-js.git
     ```
 - Go To Folder
   - ```bash
     cd solix-depin-bot-js
     ```
 
-## ⚙️ Configuration
+## ⚙️ 配置
 
-- Add your Account information (Email:password) to the accounts.txt file.
-- Add proxies to proxy.txt file.
+- 将您的账号信息(邮箱:密码)添加到accounts.txt文件
+- 将代理信息添加到proxy.txt文件
+- 新建 config.json 文件
+  ```json
+  {
+    "clientKey": "f84c5447474923d53d5e1f04f47591e440b5652c34465", 
+    "inviteCode": "zQXIGFlF"
+  }
+- clientKey替换成你的yescaptcha.com的clientKey： https://yescaptcha.com/i/ZWHtlc，打码费用 0.016R/次
 
-- Install Dependencies
+- 安装依赖
   ```bash
   npm install
   ```
-- Run the script
+- 运行脚本
 
   ```bash
   npm start
   ```
 
-## [◉°] ScreenShot
+- 刷邀请
 
-- Bot Interface <br>
-<img src="https://github.com/user-attachments/assets/80700923-e991-49b3-af89-2f7dbd11b671" widht=580 height=480 >
-
-- Mining Process
-<img src="https://github.com/user-attachments/assets/51f06a2f-c23a-4f41-bdb8-3e0b06b0833f" widht=580 height=480 >
-
-- Automatic Re-Login when Bearer Token Expired
-<img src="https://github.com/user-attachments/assets/1103ed4e-afb1-4b9b-8ea4-e8897a853821" widht=580 height=580 >
-
-- Automatic Task Completion and Reward Claim
-<img src="https://github.com/user-attachments/assets/127dc296-16d2-4f39-bf03-0326e01cf527" widht=580 height=580 >
+  ```bash
+  node register.js
+  ```
