@@ -1,32 +1,3 @@
-"use strict";
-
-/**
-########################################################
-#                                                      #
-#   CODE  : SOLIX DEPIN Bot v1.0.0                     #
-#   NodeJs: v23.10.0                                   #
-#   Author: CMALF                                      #
-#   TG    : https://t.me/djagocuan                     #
-#   GH    : https://github.com/cmalf                   #
-#                                                      #
-########################################################
-*/
-/**
- * This code is open-source and welcomes contributions! 
- * 
- * If you'd like to add features or improve this code, please follow these steps:
- * 1. Fork this repository to your own GitHub account.
- * 2. Make your changes in your forked repository.
- * 3. Submit a pull request to the original repository. 
- * 
- * This allows me to review your contributions and ensure the codebase maintains high quality. 
- * 
- * Let's work together to improve this project!
- * 
- * P.S. Remember to always respect the original author's work and avoid plagiarism. 
- * Let's build a community of ethical and collaborative developers.
- */
-
 const fs = require("fs");
 const axios = require("axios");
 const readline = require("readline");
@@ -52,7 +23,7 @@ const COMMON_HEADERS = {
 
 // Global loginData to be used for clearing intervals on exit
 let globalLoginData = [];
-
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 function createAxiosInstance(accessToken, agent) {
   const config = {
@@ -514,13 +485,13 @@ async function completeTasks(accountData, agent) {
 
   for (const task of tasks) {
     try {
-      if (tasks.status === 'claimed') {
+      if (task.status === 'claimed') {
         console.log(
           `${Colors.Teal}]> ${Colors.Green}Task Claimed: ${task.name} (ID: ${task._id})${Colors.RESET}, Skipping...`
         );
-        continue;
+        return;
       }
-      if (tasks.status === 'pending') {
+      if (task.status === 'pending') {
         console.log(
           `${Colors.Teal}]> ${Colors.Green}Task Completed: ${task.name} (ID: ${task._id})${Colors.RESET}, start claiming...`
         );
@@ -530,7 +501,7 @@ async function completeTasks(accountData, agent) {
             `${Colors.Teal}]> ${Colors.Green}Task Claimed: ${task.name} (ID: ${task._id})${Colors.RESET}`
           );
         }
-        continue;
+        return;
       }
       const result = await doTask(instance, task._id);
       if (result) {
@@ -610,8 +581,27 @@ async function main() {
   }
 
   const allAccounts = loadAccounts();
-  let loginData = await reLogin(allAccounts, agent);
-  // Update global login data for signal handlers.
+  // 先尝试从DataAccount.json加载已有登录数据
+  let existingLoginData = loadLoginData() || [];
+  let loginData = [];
+  
+  for (const account of allAccounts) {
+    // 检查是否已有该账号的token
+    const existingAccount = existingLoginData.find(a => a.email === account.email);
+    
+    if (existingAccount && existingAccount.accessToken) {
+      console.log(
+        `${Colors.Teal}]> ${Colors.Green}Using existing token for ${maskEmail(account.email)}${Colors.RESET}`
+      );
+      loginData.push(existingAccount);
+    } else {
+      // 没有token则重新登录
+      const newLoginData = await reLogin([account], agent);
+      if (newLoginData && newLoginData.length > 0) {
+        loginData.push(...newLoginData);
+      }
+    }
+  }
   globalLoginData = loginData;
 
   // Display menu options.
@@ -644,6 +634,7 @@ async function main() {
       runningMining.add(accountData.email);
       await completeTasks(accountData, agent);
       runMiningPoints(accountData, agent, allAccounts);
+      await delay(5000); // Delay between accounts to avoid rate limits
     }
   }
 
