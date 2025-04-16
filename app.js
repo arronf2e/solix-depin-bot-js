@@ -492,7 +492,6 @@ async function completeTasks(accountData, agent) {
   let tasks;
   try {
     tasks = await getUserTask(instance);
-    console.log(tasks, 'tasks')
   } catch (error) {
     console.error(
       Colors.Red +
@@ -515,6 +514,24 @@ async function completeTasks(accountData, agent) {
 
   for (const task of tasks) {
     try {
+      if (tasks.status === 'claimed') {
+        console.log(
+          `${Colors.Teal}]> ${Colors.Green}Task Claimed: ${task.name} (ID: ${task._id})${Colors.RESET}, Skipping...`
+        );
+        continue;
+      }
+      if (tasks.status === 'pending') {
+        console.log(
+          `${Colors.Teal}]> ${Colors.Green}Task Completed: ${task.name} (ID: ${task._id})${Colors.RESET}, start claiming...`
+        );
+        const claimResult = await claimTask(instance, task._id);
+        if (claimResult) {
+          console.log(
+            `${Colors.Teal}]> ${Colors.Green}Task Claimed: ${task.name} (ID: ${task._id})${Colors.RESET}`
+          );
+        }
+        continue;
+      }
       const result = await doTask(instance, task._id);
       if (result) {
         console.log(
@@ -625,6 +642,7 @@ async function main() {
         }
       }
       runningMining.add(accountData.email);
+      await completeTasks(accountData, agent);
       runMiningPoints(accountData, agent, allAccounts);
     }
   }
