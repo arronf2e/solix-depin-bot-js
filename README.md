@@ -48,7 +48,7 @@
     "clientKey": "", 
     "inviteCode": "zQXIGFlF"
   }
-- clientKey替换成你的yescaptcha.com的clientKey： https://yescaptcha.com/i/ZWHtlc，打码费用 0.016R/次
+- clientKey替换成你的yescaptcha.com的clientKey：https://yescaptcha.com/i/ZWHtlc     ，打码费用 0.016R/次
 
 - 安装依赖
   ```bash
