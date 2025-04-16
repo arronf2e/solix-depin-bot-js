@@ -543,6 +543,7 @@ async function completeTasks(accountData, agent) {
         Colors.RESET
       );
     }
+    await delay(10000)
   }
 }
 
