@@ -45,7 +45,7 @@
 - 新建 config.json 文件
   ```json
   {
-    "clientKey": "f84c5447474923d53d5e1f04f47591e440b5652c34465", 
+    "clientKey": "", 
     "inviteCode": "zQXIGFlF"
   }
 - clientKey替换成你的yescaptcha.com的clientKey： https://yescaptcha.com/i/ZWHtlc，打码费用 0.016R/次
