@@ -92,8 +92,8 @@ function loadAccounts() {
   if (!fs.existsSync(accountsPath)) {
     console.error(
       Colors.Red +
-        "accounts.txt file not found. Please create the file with account credentials." +
-        Colors.RESET
+      "accounts.txt file not found. Please create the file with account credentials." +
+      Colors.RESET
     );
     process.exit(1);
   }
@@ -122,9 +122,9 @@ function saveLoginData(loginData) {
   } catch (err) {
     console.error(
       Colors.Red +
-        "Error saving DataAccount.json: " +
-        err.message +
-        Colors.RESET
+      "Error saving DataAccount.json: " +
+      err.message +
+      Colors.RESET
     );
   }
 }
@@ -166,20 +166,20 @@ async function login(instance, account) {
     } else {
       console.error(
         Colors.Red +
-          "Login failed for: " +
-          account.email +
-          Colors.RESET
+        "Login failed for: " +
+        account.email +
+        Colors.RESET
       );
       return null;
     }
   } catch (error) {
     console.error(
       Colors.Red +
-        "Error during login for " +
-        account.email +
-        ": " +
-        error.message +
-        Colors.RESET
+      "Error during login for " +
+      account.email +
+      ": " +
+      error.message +
+      Colors.RESET
     );
     return null;
   }
@@ -348,8 +348,8 @@ async function runMiningPoints(accountData, agent, allAccounts) {
         if (error instanceof UnauthorizedError) {
           console.log(
             Colors.Yellow +
-              `Unauthorized error in connection quality check for ${masked}. Triggering re-login for this account.` +
-              Colors.RESET
+            `Unauthorized error in connection quality check for ${masked}. Triggering re-login for this account.` +
+            Colors.RESET
           );
           clearInterval(cqIntervalId);
           clearInterval(pointIntervalId);
@@ -361,23 +361,23 @@ async function runMiningPoints(accountData, agent, allAccounts) {
             accountData.accessToken = loggedInAccount[0].accessToken;
             console.log(
               Colors.Green +
-                `Re-login successful for ${masked}. Restarting mining.` +
-                Colors.RESET
+              `Re-login successful for ${masked}. Restarting mining.` +
+              Colors.RESET
             );
             runMiningPoints(accountData, agent, allAccounts);
           } else {
             console.error(
               Colors.Red +
-                `Re-login failed for ${masked}. Mining will not be restarted for this account.` +
-                Colors.RESET
+              `Re-login failed for ${masked}. Mining will not be restarted for this account.` +
+              Colors.RESET
             );
           }
         } else {
           console.error(
             Colors.Red +
-              `Error during connection quality interval for ${masked}: ` +
-              error.message +
-              Colors.RESET
+            `Error during connection quality interval for ${masked}: ` +
+            error.message +
+            Colors.RESET
           );
         }
       }
@@ -405,8 +405,8 @@ async function runMiningPoints(accountData, agent, allAccounts) {
         if (error instanceof UnauthorizedError) {
           console.log(
             Colors.Yellow +
-              `Unauthorized error in point update for ${masked}. Triggering re-login for this account.` +
-              Colors.RESET
+            `Unauthorized error in point update for ${masked}. Triggering re-login for this account.` +
+            Colors.RESET
           );
           clearInterval(cqIntervalId);
           clearInterval(pointIntervalId);
@@ -418,23 +418,23 @@ async function runMiningPoints(accountData, agent, allAccounts) {
             accountData.accessToken = loggedInAccount[0].accessToken;
             console.log(
               Colors.Green +
-                `Re-login successful for ${masked}. Restarting mining.` +
-                Colors.RESET
+              `Re-login successful for ${masked}. Restarting mining.` +
+              Colors.RESET
             );
             runMiningPoints(accountData, agent, allAccounts);
           } else {
             console.error(
               Colors.Red +
-                `Re-login failed for ${masked}. Mining will not be restarted for this account.` +
-                Colors.RESET
+              `Re-login failed for ${masked}. Mining will not be restarted for this account.` +
+              Colors.RESET
             );
           }
         } else {
           console.error(
             Colors.Red +
-              `Error during point update interval for ${masked}: ` +
-              error.message +
-              Colors.RESET
+            `Error during point update interval for ${masked}: ` +
+            error.message +
+            Colors.RESET
           );
         }
       }
@@ -447,8 +447,8 @@ async function runMiningPoints(accountData, agent, allAccounts) {
     if (error instanceof UnauthorizedError) {
       console.log(
         Colors.Yellow +
-          `Unauthorized error for ${masked}. Triggering re-login for this account.` +
-          Colors.RESET
+        `Unauthorized error for ${masked}. Triggering re-login for this account.` +
+        Colors.RESET
       );
       if (accountData.cqIntervalId) clearInterval(accountData.cqIntervalId);
       if (accountData.pointIntervalId) clearInterval(accountData.pointIntervalId);
@@ -460,23 +460,23 @@ async function runMiningPoints(accountData, agent, allAccounts) {
         accountData.accessToken = loggedInAccount[0].accessToken;
         console.log(
           Colors.Green +
-            `Re-login successful for ${masked}. Restarting mining.` +
-            Colors.RESET
+          `Re-login successful for ${masked}. Restarting mining.` +
+          Colors.RESET
         );
         runMiningPoints(accountData, agent, allAccounts);
       } else {
         console.error(
           Colors.Red +
-            `Re-login failed for ${masked}. Mining will not be restarted for this account.` +
-            Colors.RESET
+          `Re-login failed for ${masked}. Mining will not be restarted for this account.` +
+          Colors.RESET
         );
       }
     } else {
       console.error(
         Colors.Red +
-          `Error processing account ${masked}: ` +
-          error.message +
-          Colors.RESET
+        `Error processing account ${masked}: ` +
+        error.message +
+        Colors.RESET
       );
     }
   }
@@ -492,12 +492,13 @@ async function completeTasks(accountData, agent) {
   let tasks;
   try {
     tasks = await getUserTask(instance);
+    console.log(tasks, 'tasks')
   } catch (error) {
     console.error(
       Colors.Red +
-        `Error fetching tasks for ${masked}: ` +
-        error.message +
-        Colors.RESET
+      `Error fetching tasks for ${masked}: ` +
+      error.message +
+      Colors.RESET
     );
     return;
   }
@@ -505,9 +506,9 @@ async function completeTasks(accountData, agent) {
   if (!tasks || tasks.length === 0) {
     console.log(
       Colors.Yellow +
-        "No tasks available for account: " +
-        masked +
-        Colors.RESET
+      "No tasks available for account: " +
+      masked +
+      Colors.RESET
     );
     return;
   }
@@ -536,9 +537,9 @@ async function completeTasks(accountData, agent) {
         } catch (claimError) {
           console.error(
             Colors.Red +
-              `Error claiming task ${task.name} for ${masked}: ` +
-              claimError.message +
-              Colors.RESET
+            `Error claiming task ${task.name} for ${masked}: ` +
+            claimError.message +
+            Colors.RESET
           );
         }
       } else {
@@ -549,9 +550,9 @@ async function completeTasks(accountData, agent) {
     } catch (error) {
       console.error(
         Colors.Red +
-          `Error completing task ${task.name} for ${masked}: ` +
-          error.message +
-          Colors.RESET
+        `Error completing task ${task.name} for ${masked}: ` +
+        error.message +
+        Colors.RESET
       );
     }
   }
@@ -564,16 +565,16 @@ function clearAllIntervals(loginData) {
       clearInterval(accountData.cqIntervalId);
       console.log(
         Colors.Yellow +
-          `Cleared connection quality interval for ${maskEmail(accountData.email)}` +
-          Colors.RESET
+        `Cleared connection quality interval for ${maskEmail(accountData.email)}` +
+        Colors.RESET
       );
     }
     if (accountData.pointIntervalId) {
       clearInterval(accountData.pointIntervalId);
       console.log(
         Colors.Yellow +
-          `Cleared point update interval for ${maskEmail(accountData.email)}` +
-          Colors.RESET
+        `Cleared point update interval for ${maskEmail(accountData.email)}` +
+        Colors.RESET
       );
     }
   }
@@ -583,42 +584,16 @@ async function main() {
   // Load proxy configuration and create a proxy agent if proxies exist.
   const proxyList = loadProxies(PROXY_FILE);
   let agent = null;
-  if (proxyList.length > 0) {
-    const selectedProxy = getRandomProxy(proxyList);
-    try {
-      agent = await createProxyAgent(selectedProxy);
-      // Uncomment for debugging proxy usage:
-      // console.log(Colors.Cyan + "Using Proxy: " + selectedProxy + Colors.RESET);
-    } catch (proxyError) {
-      console.error(
-        Colors.Red +
-          "Proxy error: " +
-          proxyError.message +
-          ". Proceeding without proxy." +
-          Colors.RESET
-      );
-    }
-  } else {
+  if (proxyList.length === 0) {
     console.log(
       Colors.Yellow +
-        "No proxies provided in proxy.txt. Proceeding without proxy." +
-        Colors.RESET
+      "No proxies provided in proxy.txt. Proceeding without proxy." +
+      Colors.RESET
     );
   }
 
   const allAccounts = loadAccounts();
-  let loginData = loadLoginData();
-
-  if (loginData && Array.isArray(loginData) && loginData.length > 0) {
-    const answer = await prompt(
-      `\n${Colors.Teal}]> ${Colors.Neon}accessToken Already Exists, \n${Colors.Teal}]> ${Colors.RESET}Do You Want to Use It or Create a New One by Re-Login? \n${Colors.Teal}]> ${Colors.Green}Type ${Colors.Neon}> ${Colors.RESET}(use/relogin): `
-    );
-    if (answer.toLowerCase() === "relogin") {
-      loginData = await reLogin(allAccounts, agent);
-    }
-  } else {
-    loginData = await reLogin(allAccounts, agent);
-  }
+  let loginData = await reLogin(allAccounts, agent);
   // Update global login data for signal handlers.
   globalLoginData = loginData;
 
@@ -629,51 +604,61 @@ async function main() {
   console.log(`${Colors.Gold}1. ${Colors.RESET}Run Mining Points`);
   console.log(`${Colors.Gold}2. ${Colors.RESET}Complete tasks`);
   console.log(`${Colors.Gold}3. ${Colors.Red}Exit${Colors.RESET}\n`);
-
-  const choice = await prompt(`${Colors.RESET}Enter your choice (1 or 3): `);
-
-  if (choice === "1") {
-    console.clear();
-    CoderMark();
-    const runningMining = new Set(); // Track accounts being processed
-    // Process mining points concurrently for each account.
-    for (const accountData of loginData) {
-      if (!runningMining.has(accountData.email)) {
-        runningMining.add(accountData.email);
-        runMiningPoints(accountData, agent, allAccounts);
+  CoderMark();
+  const runningMining = new Set(); // Track accounts being processed
+  // Process mining points concurrently for each account.
+  for (const [index, accountData] of loginData.entries()) {
+    if (!runningMining.has(accountData.email)) {
+      if (proxyList.length > 0) {
+        const selectedProxy = proxyList[index];
+        try {
+          agent = await createProxyAgent(selectedProxy);
+          console.log(Colors.Cyan + "Using Proxy: " + selectedProxy + Colors.RESET);
+        } catch (proxyError) {
+          console.error(
+            Colors.Red +
+            "Proxy error: " +
+            proxyError.message +
+            ". Proceeding without proxy." +
+            Colors.RESET
+          );
+        }
       }
+      runningMining.add(accountData.email);
+      runMiningPoints(accountData, agent, allAccounts);
     }
-  } else if (choice === "2") {
-    console.clear();
-    CoderMark();
-    // comment this if you want to use loop
-    // Complete tasks sequentially for each account.
-    for (const accountData of loginData) {
-      await completeTasks(accountData, agent);
-    }
-    // For Loop (bug) uncomment the code below
-    // // Complete tasks sequentially for each account.
-    // console.log(`${Colors.Yellow}Running task completion in a continuous loop. Press Ctrl+C to stop.${Colors.RESET}`);
-    // while (true) {
-    //   for (const accountData of loginData) {
-    //     await completeTasks(accountData, agent);
-    //     // Optional: Add a delay between processing accounts or iterations
-    //     await new Promise(resolve => setTimeout(resolve, 1000)); // Delay of 1 second
-    //   }
-    //   // Optional: Add a delay between full iterations of all accounts
-    //   await new Promise(resolve => setTimeout(resolve, 5000)); // Delay of 5 seconds
-    // }
-  } else if (choice === "3") {
-    console.clear();
-    CoderMark();
-    console.log(
-      `${Colors.Red}Exiting the application. Goodbye!${Colors.RESET}`
-    );
-    process.exit(0);
-  } else {
-    console.log(Colors.Red + "Invalid choice. Exiting." + Colors.RESET);
-    process.exit(1);
   }
+
+  // if (choice === "1") {
+  //   console.clear();
+  //   CoderMark();
+  //   const runningMining = new Set(); // Track accounts being processed
+  //   // Process mining points concurrently for each account.
+  //   for (const accountData of loginData) {
+  //     if (!runningMining.has(accountData.email)) {
+  //       runningMining.add(accountData.email);
+  //       runMiningPoints(accountData, agent, allAccounts);
+  //     }
+  //   }
+  // } else if (choice === "2") {
+  //   console.clear();
+  //   CoderMark();
+  //   // comment this if you want to use loop
+  //   // Complete tasks sequentially for each account.
+  //   for (const accountData of loginData) {
+  //     await completeTasks(accountData, agent);
+  //   }
+  // } else if (choice === "3") {
+  //   console.clear();
+  //   CoderMark();
+  //   console.log(
+  //     `${Colors.Red}Exiting the application. Goodbye!${Colors.RESET}`
+  //   );
+  //   process.exit(0);
+  // } else {
+  //   console.log(Colors.Red + "Invalid choice. Exiting." + Colors.RESET);
+  //   process.exit(1);
+  // }
 }
 
 // Clear console and start the application.
@@ -682,9 +667,9 @@ CoderMark();
 main().catch((err) => {
   console.error(
     Colors.Red +
-      "An unexpected error occurred: " +
-      err.message +
-      Colors.RESET
+    "An unexpected error occurred: " +
+    err.message +
+    Colors.RESET
   );
   process.exit(1);
 });
@@ -702,8 +687,8 @@ process.on("SIGINT", () => {
 process.on("beforeExit", (code) => {
   console.log(
     Colors.Yellow +
-      `\nProcess exiting with code: ${code}. Clearing intervals...` +
-      Colors.RESET
+    `\nProcess exiting with code: ${code}. Clearing intervals...` +
+    Colors.RESET
   );
   clearAllIntervals(globalLoginData);
 });
@@ -713,8 +698,8 @@ process.on("uncaughtException", (err) => {
   console.error(Colors.Red + "Uncaught Exception:", err + Colors.RESET);
   console.log(
     Colors.Yellow +
-      "Clearing intervals before exiting due to exception..." +
-      Colors.RESET
+    "Clearing intervals before exiting due to exception..." +
+    Colors.RESET
   );
   clearAllIntervals(globalLoginData);
   process.exit(1);
@@ -727,8 +712,8 @@ process.on("unhandledRejection", (reason, promise) => {
   );
   console.log(
     Colors.Yellow +
-      "Clearing intervals before exiting due to rejection..." +
-      Colors.RESET
+    "Clearing intervals before exiting due to rejection..." +
+    Colors.RESET
   );
   clearAllIntervals(globalLoginData);
   process.exit(1);
